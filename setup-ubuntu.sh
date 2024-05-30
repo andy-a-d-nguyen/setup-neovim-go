@@ -2,7 +2,7 @@
 
 echo "Installing Homebrew..."
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-echo "eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"" >> ~/.bashrc
+echo "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"" >>~/.bashrc
 
 echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep fd lazygit zoxide eza
@@ -18,7 +18,7 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 
 echo "Setting up Treesitter for Neovim(https://www.lazyvim.org/configuration/examples)..."
-cat > ~/.config/nvim/lua/plugins/treesitter.lua << EOF
+cat >~/.config/nvim/lua/plugins/treesitter.lua <<EOF
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -33,7 +33,7 @@ return {
 EOF
 
 echo "Setting up LSP for Neovim(https://lsp-zero.netlify.app/v3.x/getting-started.html)..."
-cat > ~/.config/nvim/lua/plugins/lsp.lua << EOF
+cat >~/.config/nvim/lua/plugins/lsp.lua <<EOF
 return {
   --- Uncomment the two plugins below if you want to manage the language servers from neovim
   {'williamboman/mason.nvim'},
@@ -48,7 +48,7 @@ return {
 EOF
 
 echo "Setting up Go for Neovim(https://github.com/ray-x/go.nvim)..."
-cat > ~/.config/nvim/lua/plugins/go.lua << EOF
+cat >~/.config/nvim/lua/plugins/go.lua <<EOF
 return {
   {
     "ray-x/go.nvim",
@@ -66,10 +66,22 @@ return {
 }
 EOF
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-echo "require(\"lspconfig\").gopls.setup()" >> ~/.config/nvim/init.lua
+echo 'require("lspconfig").gopls.setup()' >>~/.config/nvim/init.lua
+cat >>~/.config/nvim/init.lua <<EOF
+-- Run gofmt on save
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    require('go.format').gofmt()
+  end,
+  group = format_sync_grp,
+})
+EOF
 
 echo "Setting up tab autocompletion for Neovim(https://www.lazyvim.org/configuration/examples)..."
-cat > ~/.config/nvim/lua/plugins/completion.lua << EOF
+cat >~/.config/nvim/lua/plugins/completion.lua <<EOF
 return {
   -- Use <tab> for completion and snippets (supertab)
   {
@@ -119,7 +131,7 @@ return {
 EOF
 
 echo "Setting up line wrapping for Neovim(https://github.com/andrewferrier/wrapping.nvim)..."
-cat > ~/.config/nvim/lua/plugins/wrapping.lua << EOF
+cat >~/.config/nvim/lua/plugins/wrapping.lua <<EOF
 return {
   {
     "andrewferrier/wrapping.nvim",
@@ -131,7 +143,7 @@ return {
 EOF
 
 echo "Setting up ~/.bashrc..."
-echo "export nvim=/home/linuxbrew/.linuxbrew/bin/nvim" >> ~/.bashrc
-echo "eval "$(zoxide init bash)"" >> ~/.bashrc
+echo "export nvim=/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
+echo "eval \"$(zoxide init bash)\"" >>~/.bashrc
 
 echo "Done..."
