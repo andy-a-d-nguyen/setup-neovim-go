@@ -66,7 +66,7 @@ return {
 }
 EOF
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-echo 'require("lspconfig").gopls.setup()' >>~/.config/nvim/init.lua
+echo 'require("lspconfig").gopls.setup({})' >>~/.config/nvim/init.lua
 cat >>~/.config/nvim/init.lua <<EOF
 -- Run gofmt on save
 
