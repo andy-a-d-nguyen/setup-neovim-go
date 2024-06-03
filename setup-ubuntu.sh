@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Installing Homebrew..."
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
@@ -67,8 +67,9 @@ return {
 }
 EOF
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-echo 'require("lspconfig").gopls.setup({})' >>~/.config/nvim/init.lua
-cat >>~/.config/nvim/init.lua <<EOF
+cat >~/.config/nvim/init.lua <<EOF
+require("config.lazy")
+require("lspconfig").gopls.setup({})
 -- Run gofmt on save
 
 local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
@@ -145,6 +146,6 @@ EOF
 
 echo "Setting up ~/.bashrc..."
 echo "export nvim=/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
-echo "eval \"$(zoxide init bash)\"" >>~/.bashrc
+echo "eval $(zoxide init bash)" >>~/.bashrc
 
 echo "Done..."
