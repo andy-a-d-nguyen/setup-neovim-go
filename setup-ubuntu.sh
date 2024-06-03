@@ -3,6 +3,7 @@
 echo "Installing Homebrew..."
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 echo "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"" >>~/.bashrc
+source ~/.bashrc
 
 echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep fd lazygit zoxide eza
