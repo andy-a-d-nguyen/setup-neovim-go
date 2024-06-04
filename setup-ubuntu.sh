@@ -2,7 +2,7 @@
 
 echo "Installing Homebrew..."
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-echo "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"" >>~/.bashrc
+echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >>~/.bashrc
 source ~/.bashrc
 
 echo "Installing Homebrew packages..."
@@ -48,7 +48,11 @@ return {
 }
 EOF
 
-echo "Setting up Go for Neovim(https://github.com/ray-x/go.nvim)..."
+echo "Setting up Go, JSON, YAML LSP for Neovim..."
+sudo npm i -g vscode-langservers-extracted
+sudo npm i -g yaml-language-server
+
+# https://github.com/ray-x/go.nvim
 cat >~/.config/nvim/lua/plugins/go.lua <<EOF
 return {
   {
@@ -66,10 +70,16 @@ return {
   },
 }
 EOF
-# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#yamlls
 cat >~/.config/nvim/init.lua <<EOF
 require("config.lazy")
 require("lspconfig").gopls.setup({})
+require("lspconfig").jsonls.setup({})
+require("lspconfig").yamlls.setup({})
+
 -- Run gofmt on save
 
 local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
@@ -145,7 +155,7 @@ return {
 EOF
 
 echo "Setting up ~/.bashrc..."
-echo "export nvim=/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
+echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
 echo "eval $(zoxide init bash)" >>~/.bashrc
 
 echo "Done..."
