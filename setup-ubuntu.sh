@@ -59,6 +59,14 @@ sudo npm i -g yaml-language-server
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#yamlls
 cat >~/.config/nvim/init.lua <<EOF
 require("config.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
+require("lazy").setup({
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig" },
+})
 require("lspconfig").gopls.setup({})
 require("lspconfig").jsonls.setup({})
 require("lspconfig").yamlls.setup({})
