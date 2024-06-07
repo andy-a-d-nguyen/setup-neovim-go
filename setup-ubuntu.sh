@@ -2,7 +2,9 @@
 
 echo "Installing Homebrew..."
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >>~/.bashrc
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 source ~/.bashrc
 
 echo "Installing Homebrew packages..."
@@ -18,58 +20,39 @@ echo "Cloning LazyVim starter..."
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 
-echo "Setting up Treesitter for Neovim(https://www.lazyvim.org/configuration/examples)..."
-cat >~/.config/nvim/lua/plugins/treesitter.lua <<EOF
-return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add go and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "go",
-      })
-    end,
+echo "Setting up LazyVim"
+cat >~/.config/nvim/lazyvim.json <<EOF
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.coding.yanky",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.editor.outline",
+    "lazyvim.plugins.extras.editor.refactoring",
+    "lazyvim.plugins.extras.lang.go",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.ruby",
+    "lazyvim.plugins.extras.lang.toml",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.ui.mini-indentscope",
+    "lazyvim.plugins.extras.ui.treesitter-context",
+    "lazyvim.plugins.extras.util.dot",
+    "lazyvim.plugins.extras.util.gitui",
+    "lazyvim.plugins.extras.util.project"
+  ],
+  "news": {
+    "NEWS.md": "4964"
   },
+  "version": 6
 }
-EOF
 
-echo "Setting up LSP for Neovim(https://lsp-zero.netlify.app/v3.x/getting-started.html)..."
-cat >~/.config/nvim/lua/plugins/lsp.lua <<EOF
-return {
-  --- Uncomment the two plugins below if you want to manage the language servers from neovim
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-  {'neovim/nvim-lspconfig'},
-  {'hrsh7th/cmp-nvim-lsp'},
-  {'hrsh7th/nvim-cmp'},
-  {'L3MON4D3/LuaSnip'},
-}
 EOF
 
 echo "Setting up Go, JSON, YAML LSP for Neovim..."
 sudo npm i -g vscode-langservers-extracted
 sudo npm i -g yaml-language-server
-
-# https://github.com/ray-x/go.nvim
-cat >~/.config/nvim/lua/plugins/go.lua <<EOF
-return {
-  {
-    "ray-x/go.nvim",
-    dependencies = {  -- optional packages
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-    },
-    config = function()
-      require("go").setup()
-    end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  },
-}
-EOF
 
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
@@ -90,56 +73,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
-EOF
-
-echo "Setting up tab autocompletion for Neovim(https://www.lazyvim.org/configuration/examples)..."
-cat >~/.config/nvim/lua/plugins/completion.lua <<EOF
-return {
-  -- Use <tab> for completion and snippets (supertab)
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-    },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      local cmp = require("cmp")
-
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif vim.snippet.active({ direction = 1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(1)
-            end)
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      })
-    end,
-  },
-}
 EOF
 
 echo "Setting up line wrapping for Neovim(https://github.com/andrewferrier/wrapping.nvim)..."
