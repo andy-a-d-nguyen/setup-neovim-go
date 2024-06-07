@@ -62,7 +62,19 @@ require("config.lazy")
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 require("lazy").setup({
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = { "go", "json", "yaml" },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+  },
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
   { "neovim/nvim-lspconfig" },
