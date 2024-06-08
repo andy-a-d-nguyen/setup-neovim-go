@@ -47,52 +47,6 @@ cat >~/.config/nvim/lazyvim.json <<EOF
   },
   "version": 6
 }
-
-EOF
-
-echo "Setting up Go, JSON, YAML LSP for Neovim..."
-sudo npm i -g vscode-langservers-extracted
-sudo npm i -g yaml-language-server
-
-# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
-# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
-# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#yamlls
-cat >~/.config/nvim/init.lua <<EOF
-require("config.lazy")
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
-require("lazy").setup({
-  { "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function ()
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
-        ensure_installed = { "go", "json", "yaml" },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end
-  },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
-  { "neovim/nvim-lspconfig" },
-})
-require("lspconfig").gopls.setup({})
-require("lspconfig").jsonls.setup({})
-require("lspconfig").yamlls.setup({})
-
--- Run gofmt on save
-
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    require('go.format').gofmt()
-  end,
-  group = format_sync_grp,
-})
 EOF
 
 echo "Setting up line wrapping for Neovim(https://github.com/andrewferrier/wrapping.nvim)..."
