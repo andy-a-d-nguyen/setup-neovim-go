@@ -7,7 +7,7 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 source ~/.bashrc
 
 echo "Installing Homebrew packages..."
-brew install gcc neovim ripgrep fd lazygit zoxide eza
+brew install gcc neovim ripgrep fd lazygit gitui zoxide eza
 
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
 echo "Backing up current Neovim config..."
