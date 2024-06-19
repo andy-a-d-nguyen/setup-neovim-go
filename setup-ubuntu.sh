@@ -26,8 +26,10 @@ cat >~/.config/nvim/lazyvim.json <<EOF
     "lazyvim.plugins.extras.coding.mini-surround",
     "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.editor.fzf",
     "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.editor.refactoring",
+    "lazyvim.plugins.extras.lang.git",
     "lazyvim.plugins.extras.lang.go",
     "lazyvim.plugins.extras.lang.json",
     "lazyvim.plugins.extras.lang.markdown",
@@ -42,21 +44,9 @@ cat >~/.config/nvim/lazyvim.json <<EOF
     "lazyvim.plugins.extras.util.project"
   ],
   "news": {
-    "NEWS.md": "4964"
+    "NEWS.md": "6077"
   },
   "version": 6
-}
-EOF
-
-echo "Setting up line wrapping for Neovim(https://github.com/andrewferrier/wrapping.nvim)..."
-cat >~/.config/nvim/lua/plugins/wrapping.lua <<EOF
-return {
-  {
-    "andrewferrier/wrapping.nvim",
-    config = function()
-      require("wrapping").setup()
-    end
-  },
 }
 EOF
 
