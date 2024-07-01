@@ -53,5 +53,6 @@ EOF
 echo "Setting up ~/.bashrc..."
 echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
 echo "eval $(zoxide init bash)" >>~/.bashrc
+source ~/.bashrc
 
 echo "Done..."
