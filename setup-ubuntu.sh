@@ -19,6 +19,11 @@ echo "Cloning LazyVim starter..."
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 
+echo "Setting up ~/.bashrc..."
+echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
+echo "eval $(zoxide init bash)" >>~/.bashrc
+source ~/.bashrc
+
 echo "Setting up LazyVim"
 cat >~/.config/nvim/lazyvim.json <<EOF
 {
@@ -49,10 +54,5 @@ cat >~/.config/nvim/lazyvim.json <<EOF
   "version": 6
 }
 EOF
-
-echo "Setting up ~/.bashrc..."
-echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
-echo "eval $(zoxide init bash)" >>~/.bashrc
-source ~/.bashrc
 
 echo "Done..."
