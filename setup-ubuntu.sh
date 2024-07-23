@@ -1,13 +1,28 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Installing Homebrew..."
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
-source ~/.bashrc
 
 echo "Installing Homebrew packages..."
-brew install gcc neovim ripgrep fd lazygit gitui zoxide eza
+brew install \ 
+  gcc \ 
+  neovim \ 
+  ripgrep \ 
+  lazygit \ 
+  gitui \ 
+  zoxide \ 
+  eza \ 
+  yazi \ 
+  ffmpegthumbnailer \ 
+  unar \ 
+  jq \ 
+  poppler \ 
+  fd \ 
+  fzf \ 
+  bat \ 
+  jesseduffield/lazydocker/lazydocker
 
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
 echo "Backing up current Neovim config..."
@@ -22,7 +37,6 @@ rm -rf ~/.config/nvim/.git
 echo "Setting up ~/.bashrc..."
 echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
 echo "eval $(zoxide init bash)" >>~/.bashrc
-source ~/.bashrc
 
 echo "Setting up LazyVim"
 cat >~/.config/nvim/lazyvim.json <<EOF
@@ -55,4 +69,5 @@ cat >~/.config/nvim/lazyvim.json <<EOF
 }
 EOF
 
+eval $(cat ~/.bashrc)
 echo "Done..."
