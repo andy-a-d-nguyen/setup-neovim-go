@@ -69,5 +69,10 @@ cat >~/.config/nvim/lazyvim.json <<EOF
 }
 EOF
 
+cat >~/.config/yazi/yazi.toml <<EOF
+[opener]
+edit = [{ run = 'nvim "$@"', block = true }]
+EOF
+
 eval $(cat ~/.bashrc)
 echo "Done..."
