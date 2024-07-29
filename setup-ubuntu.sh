@@ -6,23 +6,7 @@ test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/bre
 echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 
 echo "Installing Homebrew packages..."
-brew install \ 
-  gcc \ 
-  neovim \ 
-  ripgrep \ 
-  lazygit \ 
-  gitui \ 
-  zoxide \ 
-  eza \ 
-  yazi \ 
-  ffmpegthumbnailer \ 
-  unar \ 
-  jq \ 
-  poppler \ 
-  fd \ 
-  fzf \ 
-  bat \ 
-  jesseduffield/lazydocker/lazydocker
+brew install gcc neovim ripgrep lazygit gitui zoxide eza yazi ffmpegthumbnailer unar jq poppler fd fzf bat jesseduffield/lazydocker/lazydocker
 
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
 echo "Backing up current Neovim config..."
