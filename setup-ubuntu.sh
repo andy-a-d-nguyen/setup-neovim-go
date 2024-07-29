@@ -53,6 +53,7 @@ cat >~/.config/nvim/lazyvim.json <<EOF
 }
 EOF
 
+mkdir -p ~/.config/yazi
 cat >~/.config/yazi/yazi.toml <<EOF
 [opener]
 edit = [{ run = 'nvim "$@"', block = true }]
