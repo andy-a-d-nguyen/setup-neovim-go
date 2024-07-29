@@ -7,7 +7,7 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 
 echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep lazygit gitui zoxide eza yazi ffmpegthumbnailer unar jq poppler fd fzf bat jesseduffield/lazydocker/lazydocker jandedobbeleer/oh-my-posh/oh-my-posh ruby
-echo "eval "$(oh-my-posh init bash)"" >>~/.bashrc
+echo "eval \"$(oh-my-posh init bash)\"" >>~/.bashrc
 
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
 echo "Backing up current Neovim config..."
