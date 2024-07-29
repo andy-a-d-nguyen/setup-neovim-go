@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Installing Homebrew..."
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 
