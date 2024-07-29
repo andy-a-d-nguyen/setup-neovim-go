@@ -59,5 +59,7 @@ cat >~/.config/yazi/yazi.toml <<EOF
 edit = [{ run = 'nvim "$@"', block = true }]
 EOF
 
+eval "$(fzf --bash)"
+source <(fzf --zsh)
 eval $(cat ~/.bashrc)
 echo "Done..."
