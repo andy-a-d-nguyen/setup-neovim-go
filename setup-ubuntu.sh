@@ -38,7 +38,6 @@ cat >~/.config/nvim/lazyvim.json <<EOF
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.ruby",
     "lazyvim.plugins.extras.lang.toml",
-    "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.ui.mini-indentscope",
     "lazyvim.plugins.extras.ui.treesitter-context",
