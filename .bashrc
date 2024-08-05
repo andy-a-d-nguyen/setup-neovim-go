@@ -157,3 +157,5 @@ source "$OSH"/oh-my-bash.sh
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(oh-my-posh init bash)"
 eval "$(fzf --bash)"
+eval $(zoxide init bash)"
+export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim
