@@ -9,6 +9,7 @@ echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep lazygit gitui zoxide eza yazi ffmpegthumbnailer unar jq poppler fd fzf bat jesseduffield/lazydocker/lazydocker jandedobbeleer/oh-my-posh/oh-my-posh ruby
 
 echo "Installing oh-my-bash..."
+mv ~/.bashrc{,.bak}
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
