@@ -8,6 +8,9 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep lazygit gitui zoxide eza yazi ffmpegthumbnailer unar jq poppler fd fzf bat jesseduffield/lazydocker/lazydocker jandedobbeleer/oh-my-posh/oh-my-posh ruby
 
+echo "Installing oh-my-bash..."
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
 echo "Installing LazyVim(https://www.lazyvim.org/installation)..."
 echo "Backing up current Neovim config..."
 mv ~/.config/nvim{,.bak}
@@ -17,10 +20,6 @@ mv ~/.cache/nvim{,.bak}
 echo "Cloning LazyVim starter..."
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
-
-echo "Setting up ~/.bashrc..."
-echo "export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin/nvim" >>~/.bashrc
-echo "eval $(zoxide init bash)" >>~/.bashrc
 
 echo "Setting up LazyVim"
 cat >~/.config/nvim/lazyvim.json <<EOF
