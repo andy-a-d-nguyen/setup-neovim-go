@@ -7,7 +7,7 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 
 echo "Installing Homebrew packages..."
 brew install gcc neovim ripgrep lazygit gitui zoxide eza yazi ffmpegthumbnailer unar jq poppler fd fzf bat 
-brew install jesseduffield/lazydocker/lazydocker jandedobbeleer/oh-my-posh/oh-my-posh ruby
+brew install ruby jesseduffield/lazydocker/lazydocker jandedobbeleer/oh-my-posh/oh-my-posh
 
 echo "Installing oh-my-bash..."
 mv ~/.bashrc{,.bak}
